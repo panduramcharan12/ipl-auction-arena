@@ -1,0 +1,169 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    >
+
+    <title>IPL Auction Arena</title>
+
+    <link
+        rel="stylesheet"
+        href="{{ url_for('static', filename='css/auction.css') }}"
+    >
+
+</head>
+
+<body>
+
+    <div id="main-screen">
+
+        <!-- TOP BAR -->
+
+        <div id="top-bar">
+
+            <div class="top-card">
+                IPL AUCTION 2026
+            </div>
+
+            <div class="top-card">
+                Current Bid:
+                <span id="live-bid">
+                    ₹ {{ current_bid }}
+                </span>
+            </div>
+
+            <div class="top-card">
+                Highest Bidder:
+                <span id="highest-team">
+                    {{ current_team }}
+                </span>
+            </div>
+
+        </div>
+
+        <!-- MAIN CONTENT -->
+
+        <div id="content-area">
+
+            <!-- LEFT -->
+
+            <div id="left-panel">
+
+                <h2>TEAM DETAILS</h2>
+
+                <div id="team-details">
+                    Select a team
+                </div>
+
+            </div>
+
+            <!-- CENTER -->
+
+            <div id="center-panel">
+
+                <div id="teams-grid">
+
+                    {% for team, purse in teams.items() %}
+
+                    <div
+                        class="team-card"
+                        onclick="selectTeam('{{ team }}', '{{ purse }}')"
+                    >
+
+                        <div class="team-name">
+                            {{ team }}
+                        </div>
+
+                        <div class="team-purse">
+                            ₹ {{ purse }}
+                        </div>
+
+                    </div>
+
+                    {% endfor %}
+
+                </div>
+
+            </div>
+
+            <!-- RIGHT -->
+
+            <div id="right-panel">
+
+                <img
+                    id="player-image"
+                    src="{{ url_for('static', filename='images/' + player.image) }}"
+                >
+
+                <div id="player-name">
+                    {{ player.name }}
+                </div>
+
+                <div class="player-stat">
+                    Role: {{ player.role }}
+                </div>
+
+                <div class="player-stat">
+                    Matches: {{ player.matches }}
+                </div>
+
+                <div class="player-stat">
+                    Runs: {{ player.runs }}
+                </div>
+
+                <div class="player-stat">
+
+                    Current Bid:
+                    ₹ {{ current_bid }}
+
+                </div>
+
+            </div>
+
+        </div>
+
+        <!-- BOTTOM -->
+
+        <div id="bottom-panel">
+
+            <div
+                class="bid-paddle"
+                onclick="placeBid(1000000)"
+            >
+                +10L
+            </div>
+
+            <div
+                class="bid-paddle"
+                onclick="placeBid(2000000)"
+            >
+                +20L
+            </div>
+
+            <div
+                class="bid-paddle"
+                onclick="placeBid(5000000)"
+            >
+                +50L
+            </div>
+
+            <div class="bid-paddle skip">
+                SKIP
+            </div>
+
+        </div>
+
+    </div>
+
+    <script
+        src="{{ url_for('static', filename='js/auction.js') }}"
+    ></script>
+
+</body>
+</html>
